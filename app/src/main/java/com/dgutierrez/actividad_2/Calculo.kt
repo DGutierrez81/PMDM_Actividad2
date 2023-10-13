@@ -9,31 +9,73 @@ class Calculo {
 
     var operacion = ""
 
-    fun calculo(signo: String): String {
+    /**
+     *  En base del signo se elige el método de la operación requerida.
+     *
+     *  @param Recibe el signo de la operación a realizar.
+     */
+    fun calculo(signo: String) {
         when(signo){
-            "+" -> if(num1.contains(".") || num2.contains(".")){
-                resultado = (num1.toDouble() + num2.toDouble()).toString()
-            }else{
-                resultado = (num1.toInt() + num2.toInt()).toString()
-            }
-            "-" -> if(num1.contains(".") || num2.contains(".")){
-                resultado = (num1.toDouble() - num2.toDouble()).toString()
-            }else{
-                resultado = (num1.toInt() - num2.toInt()).toString()
-            }
-            "*" -> if(num1.contains(".") || num2.contains(".")){
-                resultado = (num1.toDouble() * num2.toDouble()).toString()
-            }else{
-                resultado = (num1.toInt() * num2.toInt()).toString()
-            }
-            "/" -> if(num1.contains(".") || num2.contains(".")){
-                resultado = (num1.toDouble() / num2.toDouble()).toString()
-            }else if(num1.toInt()%num2.toInt() != 0){
-                resultado = (num1.toDouble() / num2.toDouble()).toString()
-            }else{
-                resultado = (num1.toInt() / num2.toInt()).toString()
-            }
+            "+" -> suma()
+            "-" -> resta()
+            "*" -> multiplicacion()
+            "/" -> dividir()
         }
-        return resultado
+    }
+
+    /**
+     * Se realiza la operación de suma cambiando el tipo de dato si es decimal o no, almacenandolo en resultado.
+     */
+
+    fun suma():String{
+        if(this.num1.contains(".") || this.num2.contains(".")){
+            this.resultado = (this.num1.toDouble() + this.num2.toDouble()).toString()
+        }else{
+            this.resultado = (this.num1.toInt() + this.num2.toInt()).toString()
+        }
+        // El valor retornado corresponde al atributo resultado.
+        return this.resultado
+    }
+
+    /**
+     * Se realiza la operación de resta cambiando el tipo de dato si es decimal o no.
+     */
+    fun resta():String {
+        if(this.num1.contains(".") || this.num2.contains(".")){
+            this.resultado = (this.num1.toDouble() - this.num2.toDouble()).toString()
+        }else{
+            this.resultado = (num1.toInt() - this.num2.toInt()).toString()
+        }
+        // El valor retornado corresponde al atributo resultado.
+        return this.resultado
+    }
+
+    /**
+     * Se realiza la operación de multiplicar cambiando el tipo de dato si es decimal o no.
+     */
+    fun multiplicacion():String {
+        if(this.num1.contains(".") || this.num2.contains(".")){
+            this.resultado = (this.num1.toDouble() * this.num2.toDouble()).toString()
+        }else{
+            this.resultado = (this.num1.toInt() * this.num2.toInt()).toString()
+        }
+        // El valor retornado corresponde al atributo resultado.
+        return this.resultado
+    }
+
+    /**
+     * Se realiza la operación de dividir cambiando el tipo de dato si es decimal o no y en este caso si la división es inexacta.
+     */
+
+    fun dividir(): String{
+        if(this.num1.contains(".") || this.num2.contains(".")){
+            this.resultado = (this.num1.toDouble() / this.num2.toDouble()).toString()
+        }else if(this.num1.toInt()%this.num2.toInt() != 0){
+            this.resultado = (this.num1.toDouble() / this.num2.toDouble()).toString()
+        }else{
+            this.resultado = (this.num1.toInt() / this.num2.toInt()).toString()
+        }
+        // El valor retornado corresponde al atributo resultado.
+        return this.resultado
     }
 }

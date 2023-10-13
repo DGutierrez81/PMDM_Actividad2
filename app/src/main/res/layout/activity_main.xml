@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textAlignment="textEnd"
+        tools:text="1234"
         android:textSize="43dp"
         android:textColor="@color/white"
         app:layout_constraintVertical_bias="0.01"
