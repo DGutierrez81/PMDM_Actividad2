@@ -6,13 +6,13 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 
-class MainActivity : AppCompatActivity() {
+class MainActivity_dani : AppCompatActivity() {
 
     private lateinit var pantalla: TextView
 
     private lateinit var operacionAnterior: String
 
-    private lateinit var calculo: Calculo
+    private lateinit var calculo: Calculo_dani
 
     private lateinit var igual: Button
 
@@ -22,16 +22,18 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var signos: ArrayList<Button>
 
+    private lateinit var borrar: Button
+
     var bandera = false
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_dani)
 
         // Creo el objeto de la clase cálculo.
-        calculo = Calculo()
+        calculo = Calculo_dani()
 
         Inicio()
 
@@ -40,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     *  Se inicializar todas la variables de cada componente.
+     *  Se inicializa todas la variables de cada componente.
      */
     fun Inicio(){
         pantalla = findViewById<TextView>(R.id.pantalla)
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         numeros.add(findViewById<Button>(R.id.ocho))
         numeros.add(findViewById<Button>(R.id.nueve))
         numeros.add(findViewById<Button>(R.id.punto))
+        numeros.add(findViewById<Button>(R.id.borrar))
     }
 
     /**
@@ -90,18 +93,15 @@ class MainActivity : AppCompatActivity() {
      */
     fun BotonesClick(){
         for(i in numeros.indices){
-            // Establece el valor del 0.
-            if(i == 0){
-                numeros[i].setOnClickListener { ceroPunto(i.toString(), i.toString()) }
-            }
-            // Establece el valor del punto.
-            else if(i == 10){
-                numeros[i].setOnClickListener { ceroPunto("0.", ".") }
-            }
-            // Resto de números
-            else
-            {
-                numeros[i].setOnClickListener {numero(i.toString())}
+            when(i){
+                // Establece el valor del 0.
+                0 -> numeros[i].setOnClickListener { ceroPunto(i.toString(), i.toString()) }
+                // Establece el valor del punto.
+                10 -> numeros[i].setOnClickListener { ceroPunto("0.", ".") }
+                // Se dirige a la función de borrado
+                11 -> numeros[i].setOnClickListener { borrado() }
+                // Resto de números
+                else -> numeros[i].setOnClickListener {numero(i.toString())}
             }
         }
         for(n in signos.indices){
@@ -139,10 +139,10 @@ class MainActivity : AppCompatActivity() {
     fun numero(numero: String){
         if(calculo.operacion == "") {
             calculo.num1 += numero
-            pantalla.text = calculo.num1
+            pantalla.text = getString(R.string.txtpantalla,calculo.num1)
         } else {
             calculo.num2 += numero
-            pantalla.text = calculo.num2
+            pantalla.text = getString(R.string.txtpantalla,calculo.num1 + calculo.operacion + calculo.num2)
         }
     }
 
@@ -154,34 +154,46 @@ class MainActivity : AppCompatActivity() {
 
     fun ceroPunto(conIf: String, sinIf: String){
         // Si el atributo operación está vacio se le asigna un valor al atributo num1. Si la pantalla tiene un cero se le asigna otro valor.
-        if(calculo.operacion.isEmpty()){
-            calculo.num1 += sinIf
-            if(pantalla.text == "0"){
-                calculo.num1 = conIf
+            if(calculo.operacion.isEmpty()){
+                if(!calculo.num1.contains('.')){
+                    calculo.num1 += sinIf
+                    if(pantalla.text == "0"){
+                        calculo.num1 = conIf
+                    }
+                    //pantalla.text = calculo.num1
+                    pantalla.text = getString(R.string.txtpantalla, calculo.num1)
+                }
+            }else{
+                // Si la pantalla contiene es 0 y el atributo num2 contiene un punto se le asigna un valor al atributo num2, en caso contrario se le asigna otro valor.
+                // Ver línea de código 99.
+                if(!calculo.num2.contains('.')){
+                    calculo.num2 += sinIf
+                    if(pantalla.text == "0" || calculo.num2 == "."){
+                        calculo.num2 = conIf
+                    }
+                    //pantalla.text = calculo.num2
+                    pantalla.text = getString(R.string.txtpantalla, calculo.num2)
+                }
+
             }
-            pantalla.text = calculo.num1
-        }else{
-            // Si la pantalla contiene es 0 y el atributo num2 contiene un punto se le asigna un valor al atributo num2, en caso contrario se le asigna otro valor.
-            // Ver línea de código 99.
-            calculo.num2 += sinIf
-            if(pantalla.text == "0" || calculo.num2 == "."){
-                calculo.num2 = conIf
-            }
-            pantalla.text = calculo.num2
-        }
+
     }
 
     /**
      * Indica la acción dependiendo si es una operación anidada o una operación simple dándole al signo igual.
      */
     fun operacion(signo: String){
-        if(bandera == false || calculo.num2 == ""){
-            pantalla.text = calculo.num1
+        if(calculo.num1 == ""){
+            Execpcion("debe introducir 2 números y una operación para mostrar un resultado")
         }else{
-            calculo.calculo(signo)
-            pantalla.text = calculo.resultado
-            calculo.num1 = calculo.resultado
-            calculo.num2 = ""
+            if(bandera == false || calculo.num2 == ""){
+                pantalla.text = getString(R.string.txtpantalla, calculo.num1 + calculo.operacion)
+            }else{
+                calculo.calculo(signo)
+                pantalla.text = calculo.resultado
+                calculo.num1 = calculo.resultado
+                calculo.num2 = ""
+            }
         }
     }
 
@@ -228,5 +240,33 @@ class MainActivity : AppCompatActivity() {
         calculo.resultado = ""
         pantalla.text = "0"
         bandera = false
+    }
+
+    /**
+     * Al pulsar el botón < activa la función que borra el útltimo dígito escrito.
+     */
+    fun borrado(){
+        // Si el atributo num1 de la clase cálculo esta vacio lanza un mensaje de error.
+        if(calculo.num1 == ""){
+            pantalla.text = getString(R.string.txtpantalla, "0")
+            Execpcion("No hay nada que borrar")
+        }
+        else{
+            // Borra dígito a dígito lo que tenga el atributo num1.
+            if(!calculo.num1.equals("") && calculo.operacion.equals("") && calculo.num2.equals("")){
+                calculo.num1 = calculo.num1 .substring(0, calculo.num1 .length - 1)
+                pantalla.text = getString(R.string.txtpantalla, calculo.num1)
+            }
+            // Borra la operación que marque el atributo operación.
+            if(!calculo.operacion.equals("") && calculo.num2.equals("")){
+                calculo.operacion = calculo.operacion .substring(0, calculo.operacion .length - 1)
+                pantalla.text = getString(R.string.txtpantalla, calculo.num1 + calculo.operacion)
+            }
+            // Borra dígito a dígito lo que tenga el atributo num2.
+            if(!calculo.num2.equals("") && !calculo.operacion.equals("") && !calculo.num1.equals("")){
+                calculo.num2 = calculo.num2 .substring(0, calculo.num2 .length - 1)
+                pantalla.text = getString(R.string.txtpantalla,calculo.num1 + calculo.operacion + calculo.num2)
+            }
+        }
     }
 }

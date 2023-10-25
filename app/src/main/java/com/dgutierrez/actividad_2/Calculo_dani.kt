@@ -1,6 +1,6 @@
 package com.dgutierrez.actividad_2
 
-class Calculo {
+class Calculo_dani {
     var num1 = ""
 
     var num2 = ""
