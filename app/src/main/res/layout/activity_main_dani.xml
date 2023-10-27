@@ -111,21 +111,24 @@
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/cinco"
             android:text="@string/_5"
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/seis"
             android:text="@string/_6"
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/multiplicar"
             android:text="@string/_multiplicar"
@@ -152,21 +155,24 @@
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/dos"
             android:text="@string/_2"
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/tres"
             android:text="@string/_3"
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/suma"
             android:text="@string/_mas"
@@ -193,21 +199,24 @@
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/cero"
             android:text="@string/_0"
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/punto"
             android:text="@string/_punto"
             android:textSize="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/gOscuro"/>
+            android:backgroundTint="@color/gOscuro"
+            android:layout_marginStart="5dp"/>
         <Button
             android:id="@+id/resta"
             android:text="@string/_menos"

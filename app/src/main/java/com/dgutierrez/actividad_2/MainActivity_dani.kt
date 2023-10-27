@@ -157,7 +157,7 @@ class MainActivity_dani : AppCompatActivity() {
             if(calculo.operacion.isEmpty()){
                 if(!calculo.num1.contains('.')){
                     calculo.num1 += sinIf
-                    if(pantalla.text == "0"){
+                    if(pantalla.text == "0" || calculo.num1 == "."){
                         calculo.num1 = conIf
                     }
                     //pantalla.text = calculo.num1
@@ -172,7 +172,7 @@ class MainActivity_dani : AppCompatActivity() {
                         calculo.num2 = conIf
                     }
                     //pantalla.text = calculo.num2
-                    pantalla.text = getString(R.string.txtpantalla, calculo.num2)
+                    pantalla.text = getString(R.string.txtpantalla, calculo.num1 + calculo.operacion + calculo.num2)
                 }
 
             }
@@ -215,7 +215,7 @@ class MainActivity_dani : AppCompatActivity() {
             }
             // Aparece el valor del atributo calculo por pantalla y se reinicia el resto de atributos y variables.
             pantalla.text = calculo.resultado
-            calculo.num1 = ""
+            calculo.num1 = calculo.resultado
             calculo.num2 = ""
             calculo.operacion = ""
             bandera = false
